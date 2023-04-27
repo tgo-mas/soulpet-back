@@ -1,5 +1,5 @@
 const {connection} = require("../database/database");
-const {DataTypes, NUMBER} = require("sequelize");
+const {DataTypes} = require("sequelize");
 
 // documento(tabela task) e propriedades do documento(titulo, descricao, status)
 const Servico = connection.define(
@@ -7,14 +7,13 @@ const Servico = connection.define(
     {               
         nome: {
             type: DataTypes.STRING,       // String, Number, boolean
-            allowNull: true,
+            allowNull: false,
         },
         preco: {
             type: DataTypes.NUMBER,
-            allowNull: true,
+            allowNull: false,
         }
-    } 
-    ); 
+    }
+); 
 
-
-    module.exports = Servico;
+module.exports = Servico;
