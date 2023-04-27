@@ -10,7 +10,7 @@ const Servico = model(
             required: true,
         },
         preco: {
-            type: Boolean,
+            type: Number,
             required: true,
         }
     }) 
