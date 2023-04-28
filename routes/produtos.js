@@ -16,7 +16,6 @@ router.get("/produtos", async (req, res) => {
     
 });
 
-
 router.get("/produtos/:id", async (req, res) => {
     const produto = await Produto.findOne({ where: { id: req.params.id } });
     if (produto) {
@@ -26,17 +25,6 @@ router.get("/produtos/:id", async (req, res) => {
     }
 });
 
-router.post("/produtos", async (req, res) => {
-    const {nome, preco, descricao, desconto, dataDesconto, categoria} = req.body;
 
-    try {
-        const novoProduto = await Produto.create(
-            {nome, preco, descricao, desconto, dataDesconto, categoria});
-            res.status(201).json(novoProduto);
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({message: "Um erro aconteceu."});
-    }
-})
 
 module.exports = router;

@@ -28,7 +28,7 @@ app.use(rotasClientes); // Configurar o grupo de rotas no app
 app.use(rotasPets);
 app.use(rotasServicos);  // criar doc de rotas para Servicos
 app.use(rotasPedidos);  // criar doc de rotas para Pedidos 
-app.use(rotasProdutos);  // criar doc de rotas para Pedidos 
+app.use(rotasProdutos);  // criar doc de rotas para Produtos 
 
 // Escuta de eventos (listen)
 app.listen(3001, () => {
