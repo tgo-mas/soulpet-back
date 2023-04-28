@@ -9,7 +9,7 @@ const Servico = connection.define(
             allowNull: false,
         },
         preco: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.FLOAT,
             allowNull: false,
         }
     }

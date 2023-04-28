@@ -18,9 +18,9 @@ const Agendamento = connection.define(
     }
 ); 
 
-// Relacionamento N:N
-Servico.belongsToMany(Pet, {through:'Agendamento'});
-Pet.belongsToMany(Servico,{through:'Agendamento'});
+// Relacionamento 1:N
+Servico.hasMany(Agendamento);
+Pet.hasMany(Agendamento);
 
 
 module.exports = Agendamento;
