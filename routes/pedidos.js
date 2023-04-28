@@ -19,7 +19,7 @@ router.get("/pedidos/:id", async (req, res) => {
         if (pedido) {
             res.status(200).json(pedido);
         } else {
-            res.status(404).json({ message: "Pedido não encontrado." });
+            res.status(404).json({ message: "Pedido não encontrado." })
         }
     } catch (err) {
         console.log(err);
@@ -35,7 +35,7 @@ router.get("/pedidos/produtos/:id", async (req, res) => {
         if (pedido) {
             res.status(200).json(pedido);
         } else {
-            res.status(404).json({ message: "Produto não encontrado." });
+            res.status(404).json({ message: "Produto não encontrado." })
         }
     } catch (err) {
         console.log(err);
@@ -51,7 +51,7 @@ router.get("/pedidos/clientes/:id", async (req, res) => {
         if (pedido) {
             res.status(200).json(pedido);
         } else {
-            res.status(404).json({ message: "Cliente não encontrado." });
+            res.status(404).json({ message: "Cliente não encontrado." })
         }
     } catch (err) {
         console.log(err);
