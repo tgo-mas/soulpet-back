@@ -21,7 +21,7 @@ const rotasClientes = require("./routes/clientes");
 const rotasPets = require("./routes/pets");
 const rotasServicos = require("./routes/servicos");       //  criar doc de rotas para Servicos
 const rotasPedidos = require("./routes/pedidos"); //  criar doc de rotas para Pedidos
-const rotasProdutos = require("./routes/produtos"); //  criar doc de rotas para Pedidos
+const rotasProdutos = require("./routes/produtos"); //  criar doc de rotas para Produtos
 
 // Juntar ao app as rotas dos arquivos
 app.use(rotasClientes); // Configurar o grupo de rotas no app
