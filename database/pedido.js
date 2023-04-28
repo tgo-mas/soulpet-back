@@ -9,6 +9,7 @@ const Pedido = connection.define(
     {
         codigo: {
             type: DataTypes.UUID,
+            defaultValue: DataTypes.UUIDV4,
             primaryKey: true,
         },
         quantidade: {
