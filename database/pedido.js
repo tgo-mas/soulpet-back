@@ -12,16 +12,16 @@ const Pedido = connection.define(
             primaryKey: true,
         },
         quantidade: {
-            type: DataTypes.NUMBER,
+            type: DataTypes.INTEGER,
             allowNull: false,
         }
     }
 );
 
-Cliente.hasMany(Pedido, { foreignKey: { type: DataTypes.UUID } }, { onDelete: "CASCADE" });
+Cliente.hasMany(Pedido, { onDelete: "CASCADE" });
 Pedido.belongsTo(Cliente);
 
-Produto.hasMany(Pedido, { foreignKey: { type: DataTypes.UUID } }, { onDelete: "CASCADE" });
+Produto.hasMany(Pedido, { onDelete: "CASCADE" });
 Pedido.belongsTo(Produto);
 
 module.exports = Pedido;
