@@ -7,8 +7,8 @@ const Produto = connection.define("produto", {
         allowNull: false,
     },
 
-    preço: {
-        type: DataTypes.NUMBER,
+    preco: {
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
 
@@ -18,7 +18,7 @@ const Produto = connection.define("produto", {
     },
 
     desconto: {
-        type: DataTypes.NUMBER,
+        type: DataTypes.FLOAT,
         allowNull: false,
     },
 
