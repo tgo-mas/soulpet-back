@@ -34,6 +34,20 @@ router.get("/servicos", async (req, res) => {
     }
 });
     
+router.post("/servicos", async (req, res) => {
+
+    const { nome, preco } = req.body;
+
+    try{
+        const servico = await Servico.create({ nome, preco });
+        res.json(servico);
+    }catch(err){
+        res.status(500).json(err);
+    }
+
+});
+
+
 module.exports = router;
 
 //     const listaServicos = await Servico.findAll();

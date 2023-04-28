@@ -5,13 +5,13 @@ const Servico = connection.define(
     "servico",                     
     {               
         nome: {
-            type: DataTypes.STRING,       // String, Number, boolean
+            type: DataTypes.STRING(130),       // String, Number, boolean
             allowNull: false,
         },
         preco: {
             type: DataTypes.FLOAT,
             allowNull: false,
-        }
+        },
     }
 ); 
 
