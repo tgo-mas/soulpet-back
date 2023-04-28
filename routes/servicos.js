@@ -39,6 +39,10 @@ router.post("/servicos", async (req, res) => {
     const { nome, preco } = req.body;
 
     try{
+        if(!nome || !preco){
+            res.status(422).json({ message: "Campo da requisição vazio."})
+        }
+
         const servico = await Servico.create({ nome, preco });
         res.json(servico);
     }catch(err){
