@@ -1,7 +1,6 @@
 const {connection} = require("../database/database");
 const {DataTypes} = require("sequelize");
 
-// documento(tabela task) e propriedades do documento(titulo, descricao, status)
 const Servico = connection.define(
     "servico",                     
     {               
