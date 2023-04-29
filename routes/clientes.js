@@ -28,6 +28,17 @@ router.get("/clientes/:id", async (req, res) => {
   }
 });
 
+router.get("/clientes/:id/pets", async (req, res) => {
+  const { id } = req.params;
+  const cliente = await Cliente.findByPk(id, { include: Pet });
+  
+  if (!cliente) {
+    return res.status(404).send('Cliente não encontrado');
+  }
+  
+  res.send(cliente.pets);
+});
+
 router.post("/clientes", async (req, res) => {
   // Coletar os dados do req.body
   const { nome, email, telefone, endereco } = req.body;
