@@ -68,6 +68,26 @@ router.post("/servicos", async (req, res) => {
 
 });
 
+router.put("/servicos/:id", async (req, res) => {
+
+    const { nome, preco } = req.body;
+
+    const servico = Servico.findByPk(req.params.id);
+
+    try{
+
+        if(servico){
+            Servico.update({ nome, preco }, { where: { id: req.params.id }});
+            res.json("Serviço editado com sucesso!");
+        }else{
+            res.status(404).json({message: "Serviço não encontrado."})
+        }
+
+    }catch(err){
+        res.status(500).json(`Um erro aconteceu: ${err.message}`);
+    }
+
+});
 
 module.exports = router;
 
