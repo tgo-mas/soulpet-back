@@ -1,5 +1,6 @@
 const Cliente = require("../database/cliente");
 const Pedido = require("../database/pedido");
+const Produto = require("../database/produto");
 
 const { Router } = require("express");
 
@@ -58,5 +59,63 @@ router.get("/pedidos/clientes/:id", async (req, res) => {
         res.status(500).json({ message: "Um erro aconteceu." })
     }
 });
+
+router.post("/pedidos", async (req, res) => {
+    try {
+        const { codigo, quantidade, clienteId, produtoId } = req.body;
+
+        const cliente = await Cliente.findByPk(clienteId);
+        const produto = await Produto.findByPk(produtoId);
+
+        if (cliente && produto) {
+            const pedido = await Pedido.create({ codigo, quantidade, clienteId, produtoId });
+            res.status(201).json(pedido)
+        } else if (!cliente) {
+            res.status(404).json({ message: "Cliente não encontrado." });
+        } else if (!produto) {
+            res.status(404).json({ message: "Produto não encontrado." });
+        }
+    } catch (err) {
+        console.log(err);
+        res.status(500).json({ message: "Um erro aconteceu." })
+    }
+})
+
+router.delete('/pedidos/:id', async (req, res) => {
+  try {
+    const pedido = await Pedido.findByIdAndDelete(req.params.id);
+    if (!pedido) {
+      return res.status(404).send();
+    }
+    res.send(pedido);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.delete('/pedidos/clientes/:id', async (req, res) => {
+    try {
+      const pedidos = await Pedido.deleteMany({ clienteId: req.params.id });
+      if (pedidos.deletedCount === 0) {
+        return res.status(404).send();
+      }
+      res.send(pedidos);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+  
+  router.delete('/pedidos/produtos/:id', async (req, res) => {
+    try {
+      const pedidos = await Pedido.deleteMany({ produtoId: req.params.id });
+      if (pedidos.deletedCount === 0) {
+        return res.status(404).send();
+      }
+      res.send(pedidos);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+    
 
 module.exports = router;
