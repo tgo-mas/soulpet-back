@@ -25,6 +25,31 @@ router.get("/produtos/:id", async (req, res) => {
     }
 });
 
+// Remove um produto com o ID especificado
+router.delete('/produtos/:id', async (req, res) => {
+    try {
+      const produto = await Produto.findByIdAndRemove(req.params.id);
+      if (!produto) {
+        return res.status(404).json({ message: 'Produto não encontrado' });
+      }
+      res.json({ message: 'Produto removido com sucesso' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro ao remover produto' });
+    }
+  });
+  
+  // Remove todos os produtos
+  router.delete('/produtos/all', async (req, res) => {
+    try {
+      await Produto.deleteMany({});
+      res.json({ message: 'Todos os produtos foram removidos com sucesso' });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Erro ao remover produtos' });
+    }
+  });
+  
 
 
 module.exports = router;
