@@ -81,4 +81,41 @@ router.post("/pedidos", async (req, res) => {
     }
 })
 
+router.delete('/pedidos/:id', async (req, res) => {
+  try {
+    const pedido = await Pedido.findByIdAndDelete(req.params.id);
+    if (!pedido) {
+      return res.status(404).send();
+    }
+    res.send(pedido);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+});
+
+router.delete('/pedidos/clientes/:id', async (req, res) => {
+    try {
+      const pedidos = await Pedido.deleteMany({ clienteId: req.params.id });
+      if (pedidos.deletedCount === 0) {
+        return res.status(404).send();
+      }
+      res.send(pedidos);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+  
+  router.delete('/pedidos/produtos/:id', async (req, res) => {
+    try {
+      const pedidos = await Pedido.deleteMany({ produtoId: req.params.id });
+      if (pedidos.deletedCount === 0) {
+        return res.status(404).send();
+      }
+      res.send(pedidos);
+    } catch (error) {
+      res.status(500).send(error);
+    }
+  });
+    
+
 module.exports = router;
