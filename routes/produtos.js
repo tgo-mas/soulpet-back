@@ -50,6 +50,43 @@ router.post("/produtos", async (req, res) => {
     }
 });
 
+router.put("/produtos/:id", async (req, res) => {
+    // Esses são os dados que virão no corpo JSON
+    const { nome, preco, descricao, desconto, dataDesconto, categoria } = req.body;
+    const categorias = ["Higiene", "Brinquedos", "Conforto", "Alimentação", "Roupas"];
+    // É necessário checar a existência do Produto
+    // SELECT * FROM produtos WHERE id = "req.params.id";
+    const produto = await Produto.findByPk(req.params.id);
+    // se produto é null => não existe o produto com o id
+    try {
+        if (produto) {
+            // IMPORTANTE: Indicar qual o produto a ser atualizado
+            if ((categoria) && (desconto) && (dataDesconto)) {
+                if (desconto < 0 || desconto > 100) {
+                    res.status(400).json({ message: "Porcentagem de desconto inválida" })
+                }
+                if (!categorias.includes(categoria)) {
+                    res.status(400).json({ message: "Categoria inválida" })
+                }
+                if (new Date >= new Date(dataDesconto)) {
+                    res.status(400).json({ message: "Data de desconto inválida" })
+                }
+            // 1º Arg: Dados novos, 2º Arg: Where
+            await Produto.update(
+                { nome, preco, descricao, desconto, dataDesconto, categoria },
+                { where: { id: req.params.id } } // WHERE id = "req.params.id"
+            );
+            res.json({ message: "O produto foi editado." });
+        } else {
+            // caso o id seja inválido, a resposta ao cliente será essa
+            res.status(404).json({ message: "O produto não foi encontrado." });
+        }
+    }} catch (err) {
+        // caso algum erro inesperado, a resposta ao cliente será essa
+        console.log(err);
+        res.status(500).json({ message: "Um erro aconteceu." });
+    }
+});
 
 
 // Remove um produto com o ID especificado
