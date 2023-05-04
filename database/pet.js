@@ -17,6 +17,10 @@ const Pet = connection.define("pet", {
   },
   dataNasc: {
     type: DataTypes.DATEONLY,
+  },
+  imagem: {
+    type: DataTypes.STRING,
+    allowNull: true,
   }
 });
 
