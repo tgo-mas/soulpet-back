@@ -23,12 +23,12 @@ router.get("/pets/:id", async (req, res) => {
 });
 
 router.post("/pets", async (req, res) => {
-  const { nome, tipo, porte, dataNasc, clienteId } = req.body;
+  const { nome, tipo, porte, dataNasc, clienteId, imagem } = req.body;
 
   try {
     const cliente = await Cliente.findByPk(clienteId);
     if (cliente) {
-      const pet = await Pet.create({ nome, tipo, porte, dataNasc, clienteId });
+      const pet = await Pet.create({ nome, tipo, porte, dataNasc, clienteId, imagem });
       res.status(201).json(pet);
     } else {
       res.status(404).json({ message: "Cliente não encontrado." });
