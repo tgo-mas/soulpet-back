@@ -59,6 +59,17 @@ router.get("/clientes/:id/pets", async (req, res) => {
   res.send(cliente.pets);
 });
 
+router.get("/clientes/:id/endereco", async (req, res) => {
+  const { id } = req.params;
+  const endereco = await Endereco.findAll({ where: { clienteId: id }});
+
+  if(!endereco){
+    return res.status(404).json("Cliente não encontrado!");
+  }
+
+  res.json(endereco);
+});
+
 router.post("/clientes", async (req, res) => {
   // Coletar os dados do req.body
   const { nome, email, telefone, endereco } = req.body;
