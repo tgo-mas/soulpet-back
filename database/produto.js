@@ -24,7 +24,7 @@ const Produto = connection.define("produto", {
     },
 
     dataDesconto: {
-        type: DataTypes.STRING,
+        type: DataTypes.DATE,
         allowNull: false,
     },
     categoria: {

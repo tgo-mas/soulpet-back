@@ -37,7 +37,7 @@ router.post("/produtos", async (req, res) => {
             if (!categorias.includes(categoria)) {
                 res.status(400).json({ message: "Categoria inválida" })
             }
-            if (new Date >= new Date(dataDesconto)) {
+            if (new Date(dataDesconto) <= new Date ) {
                 res.status(400).json({ message: "Data de desconto inválida" })
             }
             const novoProduto = await Produto.create(
