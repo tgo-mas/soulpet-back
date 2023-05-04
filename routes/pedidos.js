@@ -4,7 +4,6 @@ const Produto = require("../database/produto");
 
 const { Router } = require("express");
 
-// Criar o grupo de rotas (/pets)
 const router = Router();
 
 router.get("/pedidos", async (req, res) => {
