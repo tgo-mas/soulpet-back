@@ -12,11 +12,11 @@ router.get("/pedidos", async (req, res) => {
   res.status(200).json(listaPedidos);
 });
 
-router.get("/pedidos/:id", async (req, res) => {
+router.get("/pedidos/:codigo", async (req, res) => {
   try {
-    const { id } = req.params;
+    const { codigo } = req.params;
 
-    const pedido = await Pedido.findByPk(id);
+    const pedido = await Pedido.findByPk(codigo);
     if (pedido) {
       res.status(200).json(pedido);
     } else {
@@ -103,9 +103,9 @@ router.put("/pedidos/:codigo", async (req, res) => {
   }
 });
 
-router.delete('/pedidos/:id', async (req, res) => {
+router.delete('/pedidos/:codigo', async (req, res) => {
   try {
-    const pedido = await Pedido.findByIdAndDelete(req.params.id);
+    const pedido = await Pedido.findByIdAndDelete(req.params.codigo);
     if (!pedido) {
       return res.status(404).send();
     }
@@ -141,3 +141,6 @@ router.delete('/pedidos/produtos/:id', async (req, res) => {
 
 
 module.exports = router;
+
+
+
