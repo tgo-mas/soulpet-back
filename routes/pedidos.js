@@ -103,39 +103,56 @@ router.put("/pedidos/:codigo", async (req, res) => {
   }
 });
 
-router.delete('/pedidos/:codigo', async (req, res) => {
+router.delete("/pedidos/:codigo", async (req, res, next) => {
+  const { codigo } = req.params;
+  const pedido = await Pedido.findByPk(codigo);
+
   try {
-    const pedido = await Pedido.findByIdAndDelete(req.params.codigo);
-    if (!pedido) {
-      return res.status(404).send();
+    if (pedido) {
+      await pedido.destroy();
+      res.json({ message: "O pedido foi removido." });
+    } else {
+      res.status(404).json({ message: "O pedido não foi encontrado" });
     }
-    res.send(pedido);
-  } catch (error) {
-    res.status(500).send(error);
+  } catch (err) {
+    console.log(err);
+    next(err)
   }
 });
+router.delete("/pedidos/clientes/:id", async (req, res, next) => {
+  const pedidos = await Pedido.findAll({ where: { clienteId: req.params.id } });
 
-router.delete('/pedidos/clientes/:id', async (req, res) => {
   try {
-    const pedidos = await Pedido.deleteMany({ clienteId: req.params.id });
-    if (pedidos.deletedCount === 0) {
-      return res.status(404).send();
+    if (pedidos) {
+      for (const pedido of pedidos) {
+        pedido.destroy()
+      }
+
+      res.json({ message: "Os pedidos foram removidos." });
+    } else {
+      res.status(404).json({ message: "Os pedidos não foram encontrados" });
     }
-    res.send(pedidos);
-  } catch (error) {
-    res.status(500).send(error);
+  } catch (err) {
+    console.log(err);
+    next(err)
   }
 });
+router.delete("/pedidos/produto/:id", async (req, res, next) => {
+  const pedidos = await Pedido.findAll({ where: { produtoId: req.params.id } });
 
-router.delete('/pedidos/produtos/:id', async (req, res) => {
   try {
-    const pedidos = await Pedido.deleteMany({ produtoId: req.params.id });
-    if (pedidos.deletedCount === 0) {
-      return res.status(404).send();
+    if (pedidos) {
+      for (const pedido of pedidos) {
+        pedido.destroy()
+      }
+
+      res.json({ message: "Os pedidos foram removidos." });
+    } else {
+      res.status(404).json({ message: "Os pedidos não foram encontrados" });
     }
-    res.send(pedidos);
-  } catch (error) {
-    res.status(500).send(error);
+  } catch (err) {
+    console.log(err);
+    next(err)
   }
 });
 
